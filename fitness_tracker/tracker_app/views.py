@@ -6,6 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from .models import Activity, WorkoutPlan, DietLog
 from .serializers import ActivitySerializer, WorkoutPlanSerializer, DietLogSerializer, UserSerializer
 
@@ -38,16 +39,17 @@ class DietLogListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)  # Automatically assign logged-in user
+        # Automatically assign the logged-in user to the diet log entry
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        # Filter diet logs by the logged-in user
+        return self.queryset.filter(user=self.request.user)
 
 # User list view
 class UserListView(generics.ListAPIView):
     """
     Handles GET requests to retrieve a list of users.
-
-    :queryset: All users in the database
-    :serializer_class: UserSerializer
-    :permission_classes: IsAuthenticated (only authenticated users can access this view)
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -60,9 +62,6 @@ class RegisterView(APIView):
     def post(self, request):
         """
         Handles POST requests to register a new user.
-
-        :param request: Django's request object
-        :return: A JSON response with a token for the newly created user
         """
         username = request.data.get('username')
         password = request.data.get('password')
@@ -84,3 +83,21 @@ class CustomAuthToken(ObtainAuthToken):
         response = super().post(request, *args, **kwargs)
         token = response.data['token']
         return Response({'token': token})
+
+# Progress view
+class ProgressView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        
+        # Calculate total distance and calories burned for the logged-in user
+        total_distance = Activity.objects.filter(user=user).aggregate(Sum('distance'))['distance__sum'] or 0
+        total_calories = Activity.objects.filter(user=user).aggregate(Sum('calories_burned'))['calories_burned__sum'] or 0
+        
+        progress_data = {
+            'total_distance': total_distance,
+            'total_calories': total_calories,
+        }
+        
+        return Response(progress_data)
