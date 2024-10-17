@@ -1,12 +1,23 @@
+# urls.py
+
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ActivityViewSet, WorkoutPlanViewSet, DietLogViewSet, RegisterView, CustomAuthToken, DietLogListCreateView, ProgressView
+from .views import (
+    ActivityViewSet,
+    WorkoutPlanViewSet,
+    DietLogViewSet,
+    RegisterView,
+    CustomAuthToken,
+    DietLogListCreateView,
+    ProgressView,
+    UserActivityHistoryView
+)
 
 # Router for ViewSets
 router = DefaultRouter()
-router.register(r'activities', ActivityViewSet)
-router.register(r'workout-plans', WorkoutPlanViewSet)
-router.register(r'diet-logs', DietLogViewSet)
+router.register(r'activities', ActivityViewSet, basename='activity')  # Add basename
+router.register(r'workout-plans', WorkoutPlanViewSet, basename='workout-plan')  # Add basename
+router.register(r'diet-logs', DietLogViewSet, basename='diet-log')  # Add basename
 
 # URL patterns
 urlpatterns = [
@@ -22,7 +33,10 @@ urlpatterns = [
     path('workout-plans/<int:pk>/', WorkoutPlanViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='workout-plan-detail'),
     path('diet-logs/<int:pk>/', DietLogViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='diet-log-detail'),
 
-    # Diet log list and creation, progress view
+    # Diet log list and creation, progress view, and user activity history view
     path('diet/', DietLogListCreateView.as_view(), name='diet-log-list-create'),
     path('progress/', ProgressView.as_view(), name='progress'),
+
+    # New endpoint for user activity history with optional filters.
+    path('activities/history/', UserActivityHistoryView.as_view(), name='user-activity-history'),
 ]
