@@ -1,7 +1,6 @@
-# urls.py
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import (
     ActivityViewSet,
     WorkoutPlanViewSet,
@@ -15,15 +14,18 @@ from .views import (
 
 # Router for ViewSets
 router = DefaultRouter()
-router.register(r'activities', ActivityViewSet, basename='activity')  # Add basename
-router.register(r'workout-plans', WorkoutPlanViewSet, basename='workout-plan')  # Add basename
-router.register(r'diet-logs', DietLogViewSet, basename='diet-log')  # Add basename
+router.register(r'activities', ActivityViewSet, basename='activity')
+router.register(r'workout-plans', WorkoutPlanViewSet, basename='workout-plan')
+router.register(r'diet-logs', DietLogViewSet, basename='diet-log')
 
 # URL patterns
 urlpatterns = [
     # Authentication and registration
     path('register/', RegisterView.as_view(), name='register'),
-    path('login/', CustomAuthToken.as_view(), name='login'),
+    
+    # Use JWT for login
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # JWT login endpoint
+    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # JWT refresh endpoint
 
     # Include the router-generated URLs for activities, workout plans, and diet logs
     path('', include(router.urls)),

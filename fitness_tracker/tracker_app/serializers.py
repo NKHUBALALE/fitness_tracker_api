@@ -1,35 +1,33 @@
-# serializers.py
 from rest_framework import serializers
-from django.contrib.auth.models import User  # Import the User model
+from django.contrib.auth.models import User
 from .models import Activity, WorkoutPlan, DietLog
 
 # Activity Serializer
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['id', 'user', 'activity_type', 'duration', 'distance', 'calories_burned', 'date']
-        read_only_fields = ['user', 'date']  # User and date should be set automatically
+        fields = '__all__'  # Specify fields as needed, e.g., ['id', 'user', 'activity_type', ...]
 
     def validate_activity_type(self, value):
-        
-        if not value:
+        if value is None or value.strip() == '':
             raise serializers.ValidationError("Activity type is required.")
         return value
 
-    def validate_duration(self, value):
-        if value <= 0:
-            raise serializers.ValidationError("Duration must be greater than zero.")
+    def validate_calories_burned(self, value):
+        if value is None or value < 0:
+            raise serializers.ValidationError("Calories burned cannot be negative.")
         return value
 
     def validate_distance(self, value):
-        if value < 0:
+        if value is None or value < 0:
             raise serializers.ValidationError("Distance cannot be negative.")
         return value
 
-    def validate_calories_burned(self, value):
-        if value < 0:
-            raise serializers.ValidationError("Calories burned cannot be negative.")
+    def validate_duration(self, value):
+        if value is None or value <= 0:
+            raise serializers.ValidationError("Duration must be greater than zero.")
         return value
+
 
 # WorkoutPlan Serializer
 class WorkoutPlanSerializer(serializers.ModelSerializer):
@@ -37,15 +35,22 @@ class WorkoutPlanSerializer(serializers.ModelSerializer):
         model = WorkoutPlan
         fields = '__all__'
 
+
 # DietLog Serializer
 class DietLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = DietLog
-        fields = ['id', 'user', 'food_item', 'calories', 'date']  # Specify only relevant fields
-        read_only_fields = ['user', 'date']  # User and date should be set automatically
+        fields = ['id', 'user', 'food_item', 'calories', 'date']
+        read_only_fields = ['user', 'date']
+
+    def validate_calories(self, value):
+        if value is None or value < 0:
+            raise serializers.ValidationError("Calories cannot be negative.")
+        return value
+
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']  # Add any other fields you need
+        fields = ['id', 'username', 'email']
