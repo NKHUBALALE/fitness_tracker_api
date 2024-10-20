@@ -10,6 +10,14 @@ class Activity(models.Model):
     date = models.DateTimeField(auto_now_add=True)  # Automatically set to now when created
 
     def __str__(self):
+        """
+        Returns a string representation of the activity in the format:
+
+        <activity_type> by <username> on <date>
+
+        Useful for displaying in the admin interface or anywhere else a
+        human-readable representation of the activity is needed.
+        """
         return f"{self.activity_type} by {self.user.username} on {self.date}"
 
 class WorkoutPlan(models.Model):

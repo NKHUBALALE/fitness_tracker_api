@@ -137,10 +137,17 @@ class UserListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 # Register API view
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.models import User
+from rest_framework.views import APIView
+from rest_framework import permissions
+
 class RegisterView(APIView):
     """
     A view that handles user registration.
-    Allows any user to register and get an authentication token upon successful registration.
+    Allows any user to register and get JWT tokens upon successful registration.
     """
     permission_classes = [permissions.AllowAny]
 
@@ -156,10 +163,18 @@ class RegisterView(APIView):
         if User.objects.filter(username=username).exists():
             return Response({"error": "Username already exists."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Create the user and assign an authentication token
+        # Create the user
         user = User.objects.create_user(username=username, password=password, email=email)
-        token = Token.objects.create(user=user)
-        return Response({"token": token.key}, status=status.HTTP_201_CREATED)
+
+        # Generate JWT tokens (access and refresh)
+        refresh = RefreshToken.for_user(user)
+        access = refresh.access_token
+
+        # Return the tokens in the response
+        return Response({
+            'refresh': str(refresh),
+            'access': str(access)
+        }, status=status.HTTP_201_CREATED)
 
 # Custom Auth Token view
 class CustomAuthToken(ObtainAuthToken):
