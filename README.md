@@ -128,9 +128,11 @@ Below is a list of available endpoints:
             "distance": 5.0,
             "calories_burned": 300}`
 
-            
+
 4. **Retrieve Activities:**
 
     -Endpoint: /api/activities/
+
     -Method: GET
+    
     -Headers: Authorization: Token your_token_here
