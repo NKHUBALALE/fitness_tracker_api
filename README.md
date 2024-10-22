@@ -72,13 +72,13 @@ Below is a list of available endpoints:
         venv\Scripts\activate 
         ``` 
 
-    **Linux/Mac**:
+**Linux/Mac**:
 
-        ```
+    ```
         python3 -m venv venv
         source venv/bin/activate
 
-        ```   
+    ```   
 
    
    
