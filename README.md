@@ -66,7 +66,7 @@ Below is a list of available endpoints:
    ```
 2 **Create and activate a virtual environment:**
    
-    **Windows**:
+**Windows**:
 
         
     python -m venv venv
