@@ -67,19 +67,7 @@ Below is a list of available endpoints:
 2 **Create and activate a virtual environment:**
   ```bash
    venv\Scripts\activate 
-   ```  
-
-     **Windows**:
-
-    ```bash
-    venv\Scripts\activate 
-    ```
-    
-     -Linux/Mac:
-
-    ```bash
-    source venv/bin/activate
-    ```
+   
 
 
 3. **Install the required dependencies**:
