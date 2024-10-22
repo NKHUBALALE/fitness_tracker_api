@@ -57,7 +57,7 @@ class UserActivityHistoryView(generics.ListAPIView):
     A view to retrieve the activity history of a logged-in user.
     Supports optional filtering by activity type or a date range.
     """
-    serializer_class = ActivitySerializer
+    serializer_class = ActivitySerializer # Use custom serializer to serialize activity data
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = UserActivityHistoryPagination  # Use custom pagination
     filter_backends = (OrderingFilter,)  # Enable ordering
@@ -68,8 +68,8 @@ class UserActivityHistoryView(generics.ListAPIView):
         """
         Filters the activities of the user with optional filtering by activity type and date range.
         """
-        user = self.request.user
-        queryset = Activity.objects.filter(user=user)
+        user = self.request.user # Get the logged-in user
+        queryset = Activity.objects.filter(user=user) ## activities of the user
 
         # Optional filtering by activity type
         activity_type = self.request.query_params.get('activity_type')
