@@ -65,9 +65,8 @@ Below is a list of available endpoints:
    cd fitness_tracker_api
 
 2 **Create and activate a virtual environment:**
-    - Windows
-    ```bash
-    venv\Scripts\activate 
+    python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
     
     -Linux/Mac:
@@ -76,7 +75,7 @@ Below is a list of available endpoints:
 
 
 
-3. **Install the required dependencies:
+3. **Install the required dependencies**:
     ```bash 
     pip install -r requirements.txt
 
