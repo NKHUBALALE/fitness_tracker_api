@@ -67,6 +67,8 @@ Below is a list of available endpoints:
 2 **Create and activate a virtual environment:**
   ```bash
    venv\Scripts\activate 
+  ```  
+
    
 
 
