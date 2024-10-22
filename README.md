@@ -68,6 +68,7 @@ Below is a list of available endpoints:
     - Windows
     ```bash
     venv\Scripts\activate 
+
     
     -Linux/Mac:
     ```bash
