@@ -68,10 +68,19 @@ Below is a list of available endpoints:
    
    **Windows**:
 
-        ```bash
+        ```
         venv\Scripts\activate 
-        ```  
+        ``` 
 
+    **Linux/Mac**:
+
+        ```
+        python3 -m venv venv
+        source venv/bin/activate
+
+        ```   
+
+   
    
 
 
