@@ -84,12 +84,20 @@ Below is a list of available endpoints:
     pip install -r requirements.txt
 
 4. **Apply migrations to set up the database:**
+
+
+
 5.**Create a superuser to access the Django admin panel(optional, but recommended for managing the admin panel):**
+
+
+
 6.**Run the development server:**
+
 
 #### You can now access the API at `http://127.0.0.1:8000/api/`.
 
 ### Testing the API with Postman
+
 
 1.**Register a New User:**
     -Endpoint: /api/login/
