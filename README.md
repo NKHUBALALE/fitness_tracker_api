@@ -100,6 +100,8 @@ Below is a list of available endpoints:
 
 
 1.**Register a New User:**
+
+
     -Endpoint: /api/login/
     -Method: POST
     -Body:`{
@@ -108,6 +110,7 @@ Below is a list of available endpoints:
     "email": "test@example.com"
 }`
 2.**login**
+
     -Endpoint: /api/login/
     -Method: POST
     -Body:{
@@ -115,6 +118,7 @@ Below is a list of available endpoints:
             "password": "testpassword"
 }`
 3.**login**
+
     -Endpoint: /api/login/
     -Method: POST
     -Body:`{
@@ -125,6 +129,7 @@ Below is a list of available endpoints:
             }
             `
 4. **Retrieve Activities:**
+
     -Endpoint: /api/activities/
     -Method: GET
     -Headers: Authorization: Token your_token_here
