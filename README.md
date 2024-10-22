@@ -65,10 +65,11 @@ Below is a list of available endpoints:
    cd fitness_tracker_api
    ```
 2 **Create and activate a virtual environment:**
-   Windows:
-  ```bash
-   venv\Scripts\activate 
-  ```  
+   
+   ***Windows***:
+    ```bash
+        venv\Scripts\activate 
+    ```  
 
    
 
