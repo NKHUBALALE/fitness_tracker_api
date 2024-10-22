@@ -69,7 +69,8 @@ Below is a list of available endpoints:
    **Windows**:
 
         
-        venv\Scripts\activate 
+    python -m venv venv
+    venv\Scripts\activate
          
 
 **Linux/Mac**:
