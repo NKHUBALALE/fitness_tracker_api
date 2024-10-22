@@ -68,22 +68,16 @@ Below is a list of available endpoints:
    
    **Windows**:
 
-        ```
+        
         venv\Scripts\activate 
-        ``` 
+         
 
 **Linux/Mac**:
 
-    ```
         python3 -m venv venv
         source venv/bin/activate
 
-    ```   
-
-   
-   
-
-
+       
 3. **Install the required dependencies**:
     ```bash 
     pip install -r requirements.txt
