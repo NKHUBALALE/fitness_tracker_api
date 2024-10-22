@@ -107,16 +107,17 @@ Below is a list of available endpoints:
     -Body:`{
     "username": "testuser",
     "password": "testpassword"
-    "email": "test@example.com"
-}`
+    "email": "test@example.com"}`
+
+
 2.**login**
 
     -Endpoint: /api/login/
     -Method: POST
     -Body:{
             "username": "testuser",
-            "password": "testpassword"
-}`
+            "password": "testpassword"}`
+
 3.**login**
 
     -Endpoint: /api/login/
@@ -125,9 +126,9 @@ Below is a list of available endpoints:
             "activity_type": "Running",
             "duration": 30,
             "distance": 5.0,
-            "calories_burned": 300
-            }
-            `
+            "calories_burned": 300}`
+
+            
 4. **Retrieve Activities:**
 
     -Endpoint: /api/activities/
